@@ -11,6 +11,8 @@ struct ProjectsView: View {
     static let openTag: String? = "Open"
     static let closedTag: String? = "Closed"
     
+    @State private var animatePlusButton = false
+    
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -57,6 +59,13 @@ struct ProjectsView: View {
             if showClosedProjects == false {
                 Button(action: addProject) {
                     Label("Add Project", systemImage: "plus")
+                        .scaleEffect(animatePlusButton ? 1.5 : 1)
+                }
+                .onAppear {
+                    guard projects.wrappedValue.isEmpty else { return }
+                    withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                        animatePlusButton.toggle()
+                    }
                 }
             }
         }

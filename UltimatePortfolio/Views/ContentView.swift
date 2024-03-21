@@ -12,12 +12,12 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedView) {
-            HomeView()
+            HomeView(selectedView: $selectedView) // Pass the binding to HomeView
                 .tag(HomeView.tag)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
-                } 
+                }
             ProjectsView(showClosedProjects: false)
                 .tag(ProjectsView.openTag)
                 .tabItem {
